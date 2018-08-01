@@ -42,20 +42,33 @@
   				alert("You are now " + yourAge + " years old.");
   				alert("You are currently in " + getLocation());
 
-  				function getLocation() {
+  				var currentLatitude;
+				var currentLongitude;
+
+				function getLocation(callback) {
 				    if (navigator.geolocation) {
-				        navigator.geolocation.getCurrentPosition(getCoordinates);
+				        navigator.geolocation.getCurrentPosition(callback);
 				    } else { 
-				        alert("4");
+				        document.getElementById("asdfsdafsdaf").innerHTML = "Geolocation is not supported by this browser.";
 				    }
 				}
 
-				function getCoordinates(position) {
-				    currentLatitude = position.coords.latitude;
-				    currentLongitude = position.coords.longitude; 
+				var xhr = new XMLHttpRequest();
+				xhr.open("POST", "rsvpButton.php", true);
+				var formData = new FormData();
+				    formData.append("userID", 100100);
+				xhr.send(formData);
 
-				    // now latitude and longitude are available
-				    alert(currentLongitude+" and "+currentLatitude);
+				xhr.onload=function(){
+				    getLocation(function (position) {
+				        var currentLatitude = position.coords.latitude;
+				        var currentLongitude = position.coords.longitude;   
+
+				        alert("1"+currentLongitude+" and "+currentLatitude);
+				        //some other codes to display the page
+				        //...
+				    });
+
 				}
 
   			</script>
