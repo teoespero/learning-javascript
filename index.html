@@ -40,12 +40,24 @@
   				yourAge = yearNow - yourDOB.getFullYear();
 
   				alert("You are now " + yourAge + " years old.");
-  				alert("You are currently in " + navigator.geolocation.getCurrentPosition(showPosition));
+  				alert("You are currently in " + getLocation());
 
-  				function showPosition(position) {
- 					   x.innerHTML = "Latitude: " + position.coords.latitude + 
-    					"<br>Longitude: " + position.coords.longitude; 
+  				function getLocation() {
+				    if (navigator.geolocation) {
+				        navigator.geolocation.getCurrentPosition(getCoordinates);
+				    } else { 
+				        alert("4");
+				    }
 				}
+
+				function getCoordinates(position) {
+				    currentLatitude = position.coords.latitude;
+				    currentLongitude = position.coords.longitude; 
+
+				    // now latitude and longitude are available
+				    alert(currentLongitude+" and "+currentLatitude);
+				}
+
   			</script>
 	</head>
 	<body>
