@@ -31,6 +31,15 @@
   				var message = "This message is from ";
 
   				alert(greeting + spacer + yourName + punctuationMark + "\n" + message + location.hostname);
+
+  				var yourDOB = prompt("When where you born (mm/dd/yyyy)?");
+  				yourDOB = new Date(yourDOB);
+
+  				var yearNow = new Date().getFullYear();
+
+  				yourAge = yearNow - yourDOB.getFullYear();
+
+  				alert("You are now " + yourAge + " years old.");
   			</script>
 	</head>
 	<body>
