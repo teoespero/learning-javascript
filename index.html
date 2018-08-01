@@ -40,35 +40,32 @@
   				yourAge = yearNow - yourDOB.getFullYear();
 
   				alert("You are now " + yourAge + " years old.");
-  				alert("You are currently in " + getLocation());
+  				alert("I'm locating where you are " + getLocation());
 
-  				var currentLatitude;
-				var currentLongitude;
-
-				function getLocation(callback) {
+  				function getLocation() {
 				    if (navigator.geolocation) {
-				        navigator.geolocation.getCurrentPosition(callback);
+				        navigator.geolocation.getCurrentPosition(getCoordinates);
 				    } else { 
-				        document.getElementById("asdfsdafsdaf").innerHTML = "Geolocation is not supported by this browser.";
+				        alert("4");
 				    }
 				}
 
-				var xhr = new XMLHttpRequest();
-				xhr.open("POST", "rsvpButton.php", true);
-				var formData = new FormData();
-				    formData.append("userID", 100100);
-				xhr.send(formData);
+				function getCoordinates(position) {
+				    currentLatitude = position.coords.latitude;
+				    currentLongitude = position.coords.longitude; 
 
-				xhr.onload=function(){
-				    getLocation(function (position) {
-				        var currentLatitude = position.coords.latitude;
-				        var currentLongitude = position.coords.longitude;   
+				    // now latitude and longitude are available
+				    alert(currentLongitude+" and "+currentLatitude);
+				    showPosition();
+				}
 
-				        alert("1"+currentLongitude+" and "+currentLatitude);
-				        //some other codes to display the page
-				        //...
-				    });
+				function showPosition(position) {
+				    var latlon = position.coords.latitude + "," + position.coords.longitude;
 
+				    var img_url = "https://maps.googleapis.com/maps/api/staticmap?center=
+				    "+latlon+"&zoom=14&size=400x300&sensor=false&key=YOUR_:KEY";
+
+				    document.getElementById("mapholder").innerHTML = "<img src='"+img_url+"'>";
 				}
 
   			</script>
